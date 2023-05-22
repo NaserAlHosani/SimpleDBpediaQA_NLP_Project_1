@@ -93,7 +93,16 @@ if __name__=="__main__":
             processed_candidate = process_entity(repalce_punc(entity))
             processed_candidate_original = process_original_entity(repalce_punc(entity))
             entity_text, label, exact_match = reverse_linking(processed_query, processed_candidate, processed_candidate_original)
-            fout.write("{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(idx, processed_query, sub, pre, direction, pre + "@" + direction + "@" + str(constraint), free_pre, label)) # entity_text, str(exact_match)
+            fout.write("{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n".format(
+                idx,
+                processed_query.encode('utf-8'),
+                sub.encode('utf-8'),
+                pre.encode('utf-8'),
+                direction.encode('utf-8'),
+                (pre + "@" + direction + "@" + str(constraint)).encode('utf-8'),
+                free_pre.encode('utf-8'),
+                label.encode('utf-8')
+            ))
             if exact_match:
                 exact_match_counter += 1
         print("{}\t{} / {} : {}".format(fold, exact_match_counter, total, exact_match_counter/total))
